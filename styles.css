@@ -1,0 +1,160 @@
+@font-face {
+    font-family: 'robotoregular';
+    src: url('/resources/roboto.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body
+{
+padding-right: 1rem;
+padding-left: 1rem;
+background-color: #000000;
+}
+
+.gradientlayer
+{
+position: absolute;
+top: calc(17rem + 7.5vw - 15vh);
+left: 0;
+padding-right: 100%;
+padding-bottom: 7rem;
+z-index: 2;
+background: linear-gradient(transparent, #000000);
+}
+.blayer
+{
+position: absolute;
+top: calc(22rem + 7.5vw - 11vh);
+left: 0;
+padding-right: 100%;
+padding-bottom: 60rem;
+z-index: 2;
+background: #000000;
+}
+
+.topimg
+{
+position: sticky;
+z-index: 1;
+top: 4rem;
+margin-bottom: 14rem;
+width: 70%;
+max-height: 400px;
+}
+
+p
+{
+color: white;
+background-color: #000000;
+font-size: calc(0.8rem + 0.5vi);
+line-height: 1.55;
+}
+
+.projects
+{
+display: inline-flex;
+text-align: left;
+overflow: hidden;
+position: relative;
+border-radius: 10px;
+border: 2px solid white;
+max-width:30rem;
+min-width: 24rem;
+max-height: 10rem;
+min-height: 7rem;
+height: 13.5vw;
+margin-top: 1rem;
+margin-left: 1rem;
+margin-right: 1rem;
+padding-left: calc(6rem + 5vi);
+z-index: 3;
+background-color: #000000;
+}
+.projects:hover
+{
+border: 2px solid orange;
+}
+
+.projectthumb
+{
+position: absolute;
+left: 0.35rem;
+top: 0.35rem;
+max-height: 9rem;
+max-width: 9rem;
+min-height: 6rem;
+min-width: 6rem;
+height: 12vw;
+width: 12vw;
+}
+
+.announcements
+{
+text-align: left;
+position: relative;
+background-color: #000000;
+border-radius: 20px;
+border: 2px solid white;
+top: 4rem;
+margin-left: 1rem;
+margin-right: 1rem;
+z-index: 3;
+height: calc(5rem + 16vh);
+}
+.announcements:hover
+{
+border: 2px solid #9B00FF;
+}
+
+.about
+{
+text-align: left;
+position: relative;
+background-color: #000000;
+border-radius: 20px;
+border: 2px solid grey;
+top: 10rem;
+margin-left: 1rem;
+margin-right: 1rem;
+z-index: 3;
+max-width: 40rem;
+margin-left: calc(16.5vw - 8vh);
+}
+.aboutpic
+{
+position: absolute;
+left: calc(7rem + 2.5vw);
+top: calc(2.5rem + 2vw);
+height: 2.2rem;
+}
+
+.antext
+{
+font-size: calc(0.8rem + 0.4vi);
+line-height: 1.55;
+text-align: left;
+position: relative;
+background-color: #000000;
+border-radius: 10px;
+margin-top: 1rem;
+margin-bottom: 5rem;
+padding-right: 0.5rem;
+padding-left: 0.5rem;
+}
+.antitle
+{
+color: #d5cffc;
+position: relative;
+display: inline;
+font-size: calc(1.2rem + 0.6vi);
+left: 0.5rem;
+}
+.andate
+{
+top: -0.6rem;
+font-size: calc(0.8rem + 0.5vi);
+color: grey;
+position: relative;
+display: inline-block;
+}
