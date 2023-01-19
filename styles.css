@@ -58,6 +58,7 @@ position: relative;
 border-radius: 10px;
 border: 2px solid white;
 max-width:30rem;
+min-width: 24rem;
 max-height: 10rem;
 min-height: 7rem;
 height: 13.5vw;
@@ -94,8 +95,8 @@ background-color: #000000;
 border-radius: 20px;
 border: 2px solid white;
 top: 4rem;
-margin-left: 1rem;
-margin-right: 1rem;
+margin-left: 0.5rem;
+margin-right: 0.5rem;
 z-index: 3;
 height: calc(5rem + 16vh);
 }
