@@ -96,7 +96,7 @@ border-radius: 20px;
 border: 2px solid white;
 top: 4rem;
 margin-left: 0.5rem;
-margin-right: 0.5rem;
+margin-right: 1rem;
 z-index: 3;
 height: calc(5rem + 16vh);
 }
