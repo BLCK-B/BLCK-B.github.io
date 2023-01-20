@@ -112,8 +112,8 @@ background-color: #000000;
 border-radius: 20px;
 border: 2px solid grey;
 top: 10rem;
-margin-left: 1.5rem;
-margin-right: 1.5rem;
+margin-left: calc(15vw - 5vh);
+margin-right: calc(15vw - 5vh);
 z-index: 3;
 }
 .aboutpic
