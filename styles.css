@@ -13,7 +13,7 @@ background-color: #000000;
 .gradientlayer
 {
 position: absolute;
-top: calc(17rem + 7.5vw - 15vh);
+top: calc(20rem + 7.5vw - 15vh);
 left: 0;
 padding-right: 100%;
 padding-bottom: 7rem;
@@ -23,10 +23,10 @@ background: linear-gradient(transparent, #000000);
 .blayer
 {
 position: absolute;
-top: calc(22rem + 7.5vw - 11vh);
+top: calc(24rem + 7.5vw - 11vh);
 left: 0;
 padding-right: 100%;
-padding-bottom: 60rem;
+padding-bottom: 62rem;
 z-index: 2;
 background: #000000;
 }
@@ -36,8 +36,8 @@ background: #000000;
 position: sticky;
 z-index: 1;
 top: 4rem;
-margin-bottom: 14rem;
-width: 70%;
+margin-bottom: 12rem;
+width: 80%;
 max-height: 400px;
 }
 
@@ -45,7 +45,7 @@ p
 {
 color: white;
 background-color: #000000;
-font-size: calc(0.8rem + 0.5vi);
+font-size: calc(1rem + 0.3vi);
 line-height: 1.55;
 }
 
@@ -97,7 +97,7 @@ top: 4rem;
 margin-left: 1rem;
 margin-right: 1rem;
 z-index: 3;
-height: calc(5rem + 16vh);
+height: calc(16.5rem - 3vh);
 }
 .announcements:hover
 {
@@ -112,21 +112,21 @@ background-color: #000000;
 border-radius: 20px;
 border: 2px solid grey;
 top: 10rem;
-margin-left: calc(15vw - 5vh);
-margin-right: calc(15vw - 5vh);
+margin-left: calc(13vw - 5vh);
+margin-right: calc(13vw - 5vh);
 z-index: 3;
 }
 .aboutpic
 {
 position: absolute;
-left: calc(7rem + 2.5vw);
-top: calc(2.5rem + 2vw);
+left: calc(7.5rem + 2.5vw);
+top: calc(2.8rem + 1.5vw);
 height: 2.2rem;
 }
 
 .antext
 {
-font-size: calc(0.8rem + 0.4vi);
+font-size: calc(0.9rem + 0.3vi);
 line-height: 1.55;
 text-align: left;
 position: relative;
@@ -142,13 +142,13 @@ padding-left: 0.5rem;
 color: #d5cffc;
 position: relative;
 display: inline;
-font-size: calc(1.2rem + 0.6vi);
+font-size: calc(1.4rem + 0.3vi);
 left: 0.5rem;
 }
 .andate
 {
 top: -0.6rem;
-font-size: calc(0.8rem + 0.5vi);
+font-size: calc(0.9rem + 0.4vi);
 color: grey;
 position: relative;
 display: inline-block;
