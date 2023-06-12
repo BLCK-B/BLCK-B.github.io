@@ -5,28 +5,22 @@
     font-style: normal;
 }
 
+html {
+ scroll-behavior: smooth;
+}
+
 body
 {
 background-color: #000000;
 }
 
-.gradientlayer
-{
-position: absolute;
-top: calc(20rem + 7.5vw - 15vh);
-left: 0;
-padding-right: 100%;
-padding-bottom: 7rem;
-z-index: 2;
-background: linear-gradient(transparent, #000000);
-}
 .blayer
 {
 position: absolute;
-top: calc(24rem + 7.5vw - 11vh);
+top: 47rem;
 left: 0;
 padding-right: 100%;
-padding-bottom: 62rem;
+padding-bottom: calc(34rem + 25vw);
 z-index: 2;
 background: #000000;
 }
@@ -35,10 +29,14 @@ background: #000000;
 {
 position: sticky;
 z-index: 1;
-top: 4rem;
-margin-bottom: 12rem;
-width: 80%;
+top: 25vh;
+margin-bottom: 35rem;
+width: 90%;
 max-height: 400px;
+}
+
+#projects {
+scroll-margin-top: 6rem;
 }
 
 p
@@ -56,34 +54,43 @@ text-align: left;
 overflow: hidden;
 position: relative;
 border-radius: 10px;
-border: 2px solid white;
+border: 2px solid #3c3c3c;
+width: 60%;
 max-width:30rem;
+min-width: 25rem;
+height: calc(6rem + 3vw);
+min-height: 8rem;
 max-height: 10rem;
-min-height: 7rem;
-height: 13.5vw;
 margin-top: 1rem;
 margin-left: 1rem;
 margin-right: 1rem;
-padding-left: calc(6rem + 5vi);
+padding-left: calc(8rem + 2vw);
 z-index: 3;
 background-color: #000000;
+transition: 1s;
+align-items: center;
 }
 .projects:hover
 {
-border: 2px solid orange;
+border: 2px solid white;
+transition: 0.2s;
 }
-
+.projects-title
+{
+font-size: calc(1.2rem + 0.3vi);
+}
+.projects p
+{
+font-size: calc(0.9rem + 0.3vi);
+}
 .projectthumb
 {
 position: absolute;
-left: 0.35rem;
-top: 0.35rem;
-max-height: 9rem;
-max-width: 9rem;
-min-height: 6rem;
-min-width: 6rem;
-height: 12vw;
-width: 12vw;
+top: 0;
+left: 0;
+max-width: 100%;
+max-height: 100%;
+object-fit: contain;
 }
 
 .announcements
@@ -91,17 +98,21 @@ width: 12vw;
 text-align: left;
 position: relative;
 background-color: #000000;
-border-radius: 20px;
-border: 2px solid white;
+border-radius: 10px;
+border: 2px solid #3c3c3c;
 top: 4rem;
-margin-left: 1rem;
-margin-right: 1rem;
+margin-left: 1.2rem;
+margin-right: 1.2rem;
+padding-left: 5px;
+padding-right: 5px;
 z-index: 3;
-height: calc(16.5rem - 3vh);
+height: 14rem;
+transition: 1s;
 }
 .announcements:hover
 {
-border: 2px solid #9B00FF;
+border: 2px solid white;
+transition: 0.2s;
 }
 
 .about
@@ -109,11 +120,11 @@ border: 2px solid #9B00FF;
 text-align: left;
 position: relative;
 background-color: #000000;
-border-radius: 20px;
-border: 2px solid grey;
+border-radius: 10px;
+border: 2px solid #3c3c3c;
 top: 10rem;
-margin-left: calc(13vw - 5vh);
-margin-right: calc(13vw - 5vh);
+margin-left: 7vw;
+margin-right: 7vw;
 z-index: 3;
 }
 .aboutpic
@@ -132,14 +143,14 @@ text-align: left;
 position: relative;
 background-color: #000000;
 border-radius: 10px;
-margin-top: 1rem;
-margin-bottom: 5rem;
+margin-top: 0.6rem;
+margin-bottom: 4rem;
 padding-right: 0.5rem;
 padding-left: 0.5rem;
 }
 .antitle
 {
-color: #d5cffc;
+color: #CCCCFF;
 position: relative;
 display: inline;
 font-size: calc(1.4rem + 0.3vi);
@@ -152,4 +163,59 @@ font-size: calc(0.9rem + 0.4vi);
 color: grey;
 position: relative;
 display: inline-block;
+}
+
+.pcback {
+top: 5px;
+width: 50px;
+margin: 10px;
+position: relative;
+display: inline-block;
+transition: 0.3s;
+}
+.pcback:hover {
+transform: rotate(-60deg);
+}
+
+.mobilecont {
+position: sticky;
+top: 0;
+z-index: 5;
+background-color: black;
+}
+.mobilecont-content {
+display: flex;
+height: 200px;
+justify-content: center;
+transition: height 0.4s ease;
+margin-bottom: 15rem;
+margin-top: 10rem;
+}
+.mobilecont-image {
+max-width: 90%;
+}
+.mobilecont.sticky .mobilecont-content {
+height: 100px;
+}
+
+.pageimg {
+max-width: 20rem;
+margin-top: 2rem;
+}
+.pagetitle
+{
+color: #CCCCFF;
+font-size: calc(1.4rem + 0.3vi);
+}
+.pagetext
+{
+text-align: left;
+}
+.pageback-mobile
+{
+display: flex;
+height: 200px;
+justify-content: center;
+background-color: black;
+height: 60px;
 }
