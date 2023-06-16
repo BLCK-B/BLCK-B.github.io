@@ -31,12 +31,12 @@
     }
 	else {
       var scaleValue = Math.max(0.8, 1 - scrollPosition * 0);
-      var heightValue = Math.max(60, 200 - scrollPosition * 0.8);
+      var heightValue = Math.max(60, 200 - scrollPosition * 0.5);
       headerImage.style.transform = "scale(" + scaleValue + ")";
       headerContent.style.height = heightValue + "px";
       topImage.style.opacity = 1;
     }
-    if (scrollPosition > 20) {
+    if (scrollPosition > 0) {
       header.classList.add("sticky");
     }
 	else {

@@ -187,7 +187,6 @@ background-color: black;
 display: flex;
 height: 200px;
 justify-content: center;
-transition: height 0.4s ease;
 margin-bottom: 15rem;
 margin-top: 10rem;
 }
@@ -206,10 +205,6 @@ margin-top: 2rem;
 {
 color: #CCCCFF;
 font-size: calc(1.4rem + 0.3vi);
-}
-.pagetext
-{
-text-align: left;
 }
 .pageback-mobile
 {
