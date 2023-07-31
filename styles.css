@@ -127,13 +127,6 @@ margin-left: 7vw;
 margin-right: 7vw;
 z-index: 3;
 }
-.aboutpic
-{
-position: absolute;
-left: calc(7.5rem + 2.5vw);
-top: calc(2.8rem + 1.5vw);
-height: 2.2rem;
-}
 
 .antext
 {
