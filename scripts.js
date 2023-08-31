@@ -19,7 +19,7 @@ window.addEventListener("scroll", function() {
 async function announcementPreview() {
 	try {
 		//fetching announcements page
-        const response = await fetch("https://blck-b.github.io/blck-announcements.html");
+        const response = await fetch("https://blck-b.github.io/announcements.html");
         const htmlContent = await response.text();
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = htmlContent;
