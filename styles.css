@@ -43,7 +43,7 @@ p
 {
 color: white;
 background-color: #000000;
-font-size: calc(1rem + 0.3vi);
+font-size: calc(0.9rem + 0.3vi);
 line-height: 1.55;
 }
 
@@ -79,10 +79,7 @@ transition: 0.2s;
 {
 font-size: calc(1.2rem + 0.3vi);
 }
-.projects p
-{
-font-size: calc(0.9rem + 0.3vi);
-}
+
 .projectthumb
 {
 position: absolute;
@@ -95,7 +92,6 @@ object-fit: contain;
 
 .announcements
 {
-text-align: left;
 position: relative;
 background-color: #000000;
 border-radius: 10px;
@@ -128,9 +124,8 @@ margin-right: 7vw;
 z-index: 3;
 }
 
-.antext
+.antext, .antitle, .andate
 {
-font-size: calc(0.9rem + 0.3vi);
 line-height: 1.55;
 text-align: left;
 position: relative;
@@ -138,8 +133,8 @@ background-color: #000000;
 border-radius: 10px;
 margin-top: 0.6rem;
 margin-bottom: 4rem;
-padding-right: 0.5rem;
-padding-left: 0.5rem;
+padding-right: 1rem;
+padding-left: 1rem;
 }
 .antitle
 {
@@ -147,11 +142,10 @@ color: #CCCCFF;
 position: relative;
 display: inline;
 font-size: calc(1.4rem + 0.3vi);
-left: 0.5rem;
+top: 5px;
 }
 .andate
 {
-top: -0.6rem;
 font-size: calc(0.9rem + 0.4vi);
 color: grey;
 position: relative;
@@ -159,11 +153,13 @@ display: inline-block;
 }
 
 .pcback {
+left: 45%;
 top: 5px;
 width: 50px;
 margin: 10px;
+margin-bottom: 30px;
 position: relative;
-display: inline-block;
+display: flex;
 transition: 0.3s;
 }
 .pcback:hover {
