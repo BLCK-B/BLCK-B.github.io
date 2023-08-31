@@ -28,7 +28,7 @@ async function announcementPreview() {
         const dateElement = tempDiv.querySelector(".andate");
         let textElement = tempDiv.querySelector(".antext");
 		//processing text
-        let shortenedContent = textElement.textContent.slice(0, 145);
+        let shortenedContent = textElement.textContent.slice(0, 135);
         if (shortenedContent.charAt(shortenedContent.length - 1) === " ") {
             shortenedContent = shortenedContent.slice(0, -1);
         }
