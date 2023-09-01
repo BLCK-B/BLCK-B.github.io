@@ -51,13 +51,12 @@ line-height: 1.55;
 {
 display: inline-flex;
 text-align: left;
-overflow: hidden;
 position: relative;
 border-radius: 10px;
 border: 2px solid #3c3c3c;
 width: 60%;
 max-width:30rem;
-min-width: 22rem;
+min-width: 22.5rem;
 height: calc(6rem + 3vw);
 min-height: 8rem;
 max-height: 10rem;
@@ -69,6 +68,7 @@ z-index: 3;
 background-color: #000000;
 transition: 1s;
 align-items: center;
+overflow: hidden;
 }
 .projects:hover
 {
@@ -104,6 +104,7 @@ padding-right: 5px;
 z-index: 3;
 height: 14rem;
 transition: 1s;
+overflow: hidden;
 }
 .announcements:hover
 {
@@ -133,8 +134,9 @@ background-color: #000000;
 border-radius: 10px;
 margin-top: 0.6rem;
 margin-bottom: 4rem;
-padding-right: 1rem;
-padding-left: 1rem;
+padding-right: 1.2rem;
+padding-left: 1.2rem;
+display: inline-block;
 }
 .antitle
 {
@@ -149,7 +151,8 @@ top: 5px;
 font-size: calc(0.9rem + 0.4vi);
 color: grey;
 position: relative;
-display: inline-block;
+display: inline;
+margin-bottom: 3px;
 }
 
 .pcback {
