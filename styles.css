@@ -51,7 +51,7 @@ p {
 	border: 2px solid #3c3c3c;
 	width: 60%;
 	max-width:30rem;
-	min-width: 22.5rem;
+	min-width: 22rem;
 	height: calc(6rem + 3vw);
 	min-height: 8rem;
 	max-height: 10rem;
@@ -209,7 +209,7 @@ blockquote {
 	);
 }
 .mobilecont-outer {
-	width: 15rem;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	position: sticky;
@@ -221,11 +221,12 @@ blockquote {
 		var(--header-height-difference) * -1
 	);
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	background-color: black;
 }
 .mobilecont-inner {
-	width: 28rem;
+	width: 240px;
 	margin: 0;
 	padding: 0;
 	display: flex;
