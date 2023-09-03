@@ -209,7 +209,7 @@ blockquote {
 	);
 }
 .mobilecont-outer {
-	max-width:30rem;
+	max-width:20rem;
 	position: sticky;
 	top: 0;
 	z-index: 5;
@@ -223,7 +223,6 @@ blockquote {
 	background-color: black;
 }
 .mobilecont-inner {
-	max-width:30rem;
 	display: flex;
 	height: 200px;
 	justify-content: center;
