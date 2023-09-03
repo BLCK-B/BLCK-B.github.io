@@ -1,21 +1,13 @@
-//fading or scaling function depending on scroll
+//fading function depending on scroll
 window.addEventListener("scroll", function() {
-	const headerContent = document.querySelector(".mobilecont-content");
-	const headerImage = document.querySelector(".mobilecont-image");
-	const topImage = document.querySelector(".topimg");
-	const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
 	if (window.innerWidth >= 768) {
+		const topImage = document.querySelector(".topimg");
+		const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 		topImage.style.opacity = 1 - scrollPosition / 200;
-	}
-	else {
-		const scaleValue = Math.max(0.8, 1 - scrollPosition * 0);
-		const heightValue = Math.max(60, 200 - scrollPosition * 0.5);
-		headerImage.style.transform = "scale(" + scaleValue + ")";
-		headerContent.style.height = heightValue + "px";
 	}
 });
 
+//create automatic preview of latest annonucement
 async function announcementPreview() {
 	try {
 		//fetching announcements page
@@ -28,7 +20,7 @@ async function announcementPreview() {
         const dateElement = tempDiv.querySelector(".andate");
         let textElement = tempDiv.querySelector(".antext");
 		//processing text
-        let shortenedContent = textElement.textContent.slice(0, 135);
+        let shortenedContent = textElement.textContent.slice(0, 80);
         if (shortenedContent.charAt(shortenedContent.length - 1) === " ") {
             shortenedContent = shortenedContent.slice(0, -1);
         }
