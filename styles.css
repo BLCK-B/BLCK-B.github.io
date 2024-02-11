@@ -38,26 +38,26 @@ p {
 	text-align: left;
 	position: relative;
 	border-radius: 10px;
-	border: 2px solid #3c3c3c;
+	border: 2px solid transparent;
 	width: 60%;
 	max-width:30rem;
 	min-width: 22rem;
 	height: calc(6rem + 3vw);
 	min-height: 8rem;
 	max-height: 10rem;
-	margin-top: 1rem;
+	margin-top: 1.4rem;
 	margin-left: 1rem;
 	margin-right: 1rem;
 	padding-left: calc(8rem + 2vw);
 	z-index: 3;
 	background-color: #000000;
-	transition: 1s;
+	transition: 0.5s;
 	align-items: center;
 	overflow: hidden;
 }
 .projects:hover {
 	border: 2px solid white;
-	transition: 0.2s;
+	transition: 0.1s;
 }
 .projects-title {
 	font-size: calc(1.2rem + 0.3vi);
@@ -72,33 +72,13 @@ p {
 	object-fit: contain;
 }
 
-.announcements {
-	position: relative;
-	background-color: #000000;
-	border-radius: 10px;
-	border: 2px solid #3c3c3c;
-	top: 4rem;
-	margin-left: 1.2rem;
-	margin-right: 1.2rem;
-	padding-left: 5px;
-	padding-right: 5px;
-	z-index: 3;
-	height: 14rem;
-	transition: 1s;
-	overflow: hidden;
-}
-.announcements:hover {
-	border: 2px solid white;
-	transition: 0.2s;
-}
-
 .about {
 	text-align: left;
 	position: relative;
 	background-color: #000000;
 	border-radius: 10px;
-	border: 2px solid #3c3c3c;
-	top: 10rem;
+	border: 2px solid #303030;
+	top:10rem;
 	margin-left: 7vw;
 	margin-right: 7vw;
 	z-index: 3;
@@ -110,49 +90,8 @@ p {
 	background-color: transparent;
 }
 
-.antext, .antitle, .andate {
-	line-height: 1.55;
-	text-align: left;
-	position: relative;
-	background-color: #000000;
-	border-radius: 10px;
-	margin-top: 0.6rem;
-	margin-bottom: 4rem;
-	padding-right: 1.2rem;
-	padding-left: 1.2rem;
-	display: inline-block;
-}
-.antitle {
-	color: #CCCCFF;
-	position: relative;
-	display: inline;
-	font-size: calc(1.4rem + 0.3vi);
-	top: 5px;
-}
-.andate {
-	font-size: calc(0.9rem + 0.4vi);
-	color: grey;
-	position: relative;
-	display: inline;
-	margin-bottom: 3px;
-}
-
-.pcback {
-	left: 45%;
-	top: 5px;
-	width: 50px;
-	margin: 10px;
-	margin-bottom: 30px;
-	position: relative;
-	display: flex;
-	transition: 0.3s;
-}
-.pcback:hover {
-	transform: rotate(-60deg);
-}
-
 .pageimg {
-	max-width: 20rem;
+	max-width: 15rem;
 	margin-top: 2rem;
 }
 .pagetitle {
@@ -179,8 +118,12 @@ blockquote {
     background-repeat: no-repeat;
     background-size: 50px 30px;
 	border-radius: 4px;
-	margin-top: 0;
+	margin-top: 2rem;
 	margin-bottom: 3rem;
+	background-color: #1d1d1d;
+}
+blockquote p {
+	background-color: transparent;
 }
 
 .radio-label {
