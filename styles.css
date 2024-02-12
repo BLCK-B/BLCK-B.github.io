@@ -13,13 +13,25 @@ body {
 	background-color: #000000;
 }
 
-.topimg {
+.graphicDesktop {
 	position: sticky;
 	z-index: 1;
-	top: 25vh;
+	top: 23vh;
 	margin-bottom: 35rem;
 	width: 100%;
 	max-height: 400px;
+}
+.topimg {
+	position: sticky;
+	width: 100%;
+	max-height: 400px;
+}
+.snippet {
+	color: white;
+	font-size: 14px;
+	letter-spacing: 0.1rem;
+	margin-top: 7rem;
+	user-select: none;
 }
 
 #projects {
@@ -174,4 +186,8 @@ blockquote p {
 	height: var(--header-inner-height);
 	position: sticky;
 	top: 0;
+}
+
+#displaySnippet {
+	color: white;
 }
