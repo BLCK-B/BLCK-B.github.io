@@ -1,0 +1,13 @@
+/* Place custom css here. */
+.prose {
+	max-width: 850px;
+}
+
+.highlight {
+    background-color: #252525;
+	border-radius: 6px;
+}
+
+.highlight pre {
+    background-color: transparent !important;
+}
