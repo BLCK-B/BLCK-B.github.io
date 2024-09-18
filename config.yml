@@ -1,0 +1,39 @@
+baseURL: "https://blck-b.github.io/"
+author: "BLCK"
+copyright: " "
+paginate: 8
+languageCode: "en"
+DefaultContentLanguage: "en"
+enableInlineShortcodes: true
+ignoreErrors:
+  - "error-remote-getjson"
+
+theme: "hugo-paper"
+title: "BLCK"
+params:
+  color: "gray"
+  avatar: "https://avatars.githubusercontent.com/u/123077751?v=4"
+  name: "Hi!"
+  bio: "Here you can find my projects and related blogs."
+  monoDarkIcon: "true"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+menu:
+  main:
+    - identifier: "projects"
+      name: "Projects"
+      url: "/projects/"
+      weight: 10
+    - identifier: "Contact"
+      name: "Contact"
+      url: "/contact/"
+      weight: 10
+
+taxonomies:
+  category: "categories"
+  tag: "tags"
+  series: "series"
