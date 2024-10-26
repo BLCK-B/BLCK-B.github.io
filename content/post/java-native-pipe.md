@@ -118,7 +118,7 @@ env:
 
 ---
 
-The first job {{<code>}}build-jar{{</code>}} sets up JDK and gradle. A bootJar is built, then uploaded with the {{<code>}}upload-artifact{{</code>}} action. The last line specifies the jar path on the runner. Notice the wildcard - because the output file contains version. Uploading means uploading an artifact, which is stored temporarily and is available for other jobs as well as for download.
+The first job {{<code>}}build-jar{{</code>}} sets up the JDK and gradle. A bootJar is built, then uploaded with the {{<code>}}upload-artifact{{</code>}} action. The last line specifies the jar path on the runner. Notice the wildcard – because the output file contains version. Uploading means uploading an artifact, which is stored temporarily and is available for other jobs as well as for download.
 
 {{<tip>}}Artifacts are accessible only in the scope of a workflow.{{</tip>}}
 
@@ -191,9 +191,9 @@ GraalVM JDK setup is handled by {{<code>}}[setup-graalvm](https://github.com/gra
       npm ci
 ```
 
-The command {{<code>}}nativeCompile{{</code>}} initiates the GraalVM compilation. Generated executable's extension is .exe on Windows and on Linux, MacOS there is no extension. The first wildcard is for version, second is for the extension. The executable is generated in {{<code>}}build/native/nativeCompile{{</code>}}.
+The command {{<code>}}nativeCompile{{</code>}} initiates the GraalVM compilation. Generated executable's extension is .exe on Windows. On Linux and MacOS there is no extension. The first wildcard in the following code is for version, second is for the extension. The executable is generated in {{<code>}}build/native/nativeCompile{{</code>}}.
 
-{{<tip>}}Native image extension on Windows is .exe while Linux, MacOS have none.{{</tip>}}
+{{<tip>}}Native image extension on Windows is .exe while Linux and MacOS have none.{{</tip>}}
 
 ```yaml
 - name: Build native executable
@@ -312,7 +312,7 @@ This is the project's file structure.
         ├── distribution
         └── src
 
-The {{<code>}}electron-main.js{{</code>}} manages the lifecycle of the native executable. Where do I put the executable? I could leave it in {{<code>}}nativeCompile{{</code>}} and point to it.
+The {{<code>}}electron-main.js{{</code>}} manages the lifecycle of the native executable. Where to put the executable? I could leave it in {{<code>}}nativeCompile{{</code>}} and point to it.
 
 ```javascript
 app.whenReady().then(() => {
@@ -335,7 +335,7 @@ app.whenReady().then(() => {
     externalEXE = spawn("buildResources/fileName", {
 ```
 
-Notably, the fileName extension there does not need to be specified. To sum up, backend file is moved to {{<code>}}buildResources{{</code>}}, where I already have icons and other resources for electron-builder. Built installers are located in {{<code>}}distribution{{</code>}}. Once all installers are ready, a release is drafted. The bootJar from the first action is located in {{<code>}}build/libs{{</code>}}.
+Notably, the fileName's extension there does not need to be specified. To sum up, backend file is moved to {{<code>}}buildResources{{</code>}}, where I already have icons and other resources for electron-builder. Built installers are located in {{<code>}}distribution{{</code>}}. Once all installers are ready, a release is drafted. The bootJar from the first action is located in {{<code>}}build/libs{{</code>}}.
 
 ### Point electron to port or index
 
@@ -348,6 +348,17 @@ function createWindow() {
 ```
 
 I don't see much difference here. I tried the former but couldn't get it to work properly. Surprising no one, the backend has to be running before {{<code>}}loadUrl{{</code>}} is called.
+
+### Possible race condition
+
+Every backend needs some time to initialise. Creating an electron window that calls the backend almost immediately can cause a race condition. Therefore, we should ensure that calls can be sent only once the backend is prepared:
+
+```javascript
+await checkBackendReady();
+createWindow();
+```
+
+In my project, a quick fix involves waiting for a promise to resolve. The {{<code>}}checkBackendReady(){{</code>}} uses polling of a boolean check. A better solution is a server-sent event listener.
 
 ### CORS policy
 
@@ -414,6 +425,6 @@ app.whenReady().then(() => {
     externalEXE = spawn("buildResources/MusicReleaseTracker", {
 ```
 
-Where is testing? I use trunk based development - protected main - so the code is guaranteed to be passing. I might follow with another post on that topic. ARM architecture is missing in my distribution (except MacOS) but seems to be a relatively simple addition.
+Where is testing? I use trunk based development – protected main – so the code is guaranteed to be passing. I might follow with another post on that topic. ARM architecture is missing in my distribution (except MacOS) but seems to be a relatively simple addition.
 
 I hope you found this useful. Any feedback is welcome.
