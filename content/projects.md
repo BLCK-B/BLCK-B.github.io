@@ -13,7 +13,7 @@
   <img src="/Moerkelogo.svg" height="80" width="80" alt="logo">
   <div style="margin-left: 20px; line-height: 1.2;">
     <h3 style="margin: 0; padding: 0;">Mørkepub</h3>
-    <p style="margin: 0px; padding: 0;">Local EPUB translation using multilingual models and CUDA. </p>
+    <p style="margin: 0px; padding: 0;">Local EPUB translation using multilingual Transformer models on GPU.</p>
   </div>
 </a>
 
