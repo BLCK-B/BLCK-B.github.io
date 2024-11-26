@@ -25,7 +25,7 @@ Replacing the JavaFX GUI meant stepping outside the Java ecosystem and turning t
 
 In this setup, frontend and backend run on separate local servers. For this post I will use Spring Tomcat server's [default port](https://docs.spring.io/spring-boot/docs/1.3.0.RELEASE/reference/html/howto-properties-and-configuration.html) 8080. Likewise, Vite in the frontend provides a server that serves the Vue.js files at 5173. These two local servers communicate via HTTP. To view the GUI itself, it's as easy as visiting localhost:5173 in a browser.
 
-Switching from JavaFX to Vue.js also allowed me to drop the need for the JDK. Vite handles building optimized static files for the frontend, which are then placed in the {{<code>}}dist/{{</code>}} directory. These files exported to {{<code>}}dist/{{</code>}}{' '} are moved over to {{<code>}}src/main/resources/static{{</code>}} so that the backend server can serve them at 8080.
+Switching from JavaFX to Vue.js also allowed me to drop the need for the JDK. Vite handles building optimized static files for the frontend, which are then placed in the {{<code>}}dist/{{</code>}} directory. These files exported to {{<code>}}dist/{{</code>}}&#8201; are moved over to {{<code>}}src/main/resources/static{{</code>}} so that the backend server can serve them at 8080.
 
 ### GraalVM
 
