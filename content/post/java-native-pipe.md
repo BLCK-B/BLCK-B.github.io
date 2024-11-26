@@ -394,7 +394,7 @@ This generates the information in {{<code>}}/tracing{{</code>}}&#8201; at root. 
 
     "pattern":"\\QMETA-INF/resources/assets/index-CkTRZNgD.js\\E"
 
-GraalVM will register the config files at {{<code>}}build/resources/aot/META-INF/native-image{{</code>}}. You can verify it additionally by compiling with [-H:Log=registerResource:3](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Resources/).
+GraalVM will register the config files at {{<code>}}build/resources/aot/META-INF/native-image{{</code>}}. You can verify it additionally by compiling with {{<code>}}[-H:Log=registerResource:3](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Resources/){{</code>}}.
 
 Unfortunately, [Vite appends hash](https://vitejs.dev/guide/assets) to static file names. The names are not guaranteed to stay the same. You could change this in Vite or make use of regular expressions.
 

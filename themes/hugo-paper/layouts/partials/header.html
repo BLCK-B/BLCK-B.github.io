@@ -37,8 +37,12 @@
     const setDark = (isDark) => {
       metaTheme.setAttribute('content', isDark ? '#000' : lightBg);
       htmlClass[isDark ? 'add' : 'remove']('dark');
+      if (isDark)
+          document.body.style.backgroundColor = '#000';
+      else
+          document.body.style.backgroundColor = lightBg;
       localStorage.setItem('dark', isDark);
-    };
+  };
 
     // init
     const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
