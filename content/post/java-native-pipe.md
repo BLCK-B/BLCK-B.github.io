@@ -1,5 +1,5 @@
 +++
-title = "From Jar to Native Cross-Platform Java with pipeline"
+title = "From Jar to native cross-platform Java with pipeline"
 date = "2024-09-18"
 +++
 
@@ -25,7 +25,7 @@ Replacing the JavaFX GUI meant stepping outside the Java ecosystem and turning t
 
 In this setup, frontend and backend run on separate local servers. For this post I will use Spring Tomcat server's [default port](https://docs.spring.io/spring-boot/docs/1.3.0.RELEASE/reference/html/howto-properties-and-configuration.html) 8080. Likewise, Vite in the frontend provides a server that serves the Vue.js files at 5173. These two local servers communicate via HTTP. To view the GUI itself, it's as easy as visiting localhost:5173 in a browser.
 
-Switching from JavaFX to Vue.js also allowed me to drop the need for the JDK. Vite handles building optimized static files for the frontend, which are then placed in the {{<code>}}dist/{{</code>}} directory. These files exported to {{<code>}}dist/{{</code>}}&#8201; are moved over to {{<code>}}src/main/resources/static{{</code>}}&#8201; so that the backend server can serve them at 8080.
+Switching from JavaFX to Vue.js also allowed me to drop the need for the JDK. Vite handles building optimized static files for the frontend, which are then placed in the {{<code>}}dist/{{</code>}}&#8201; directory. These files exported to {{<code>}}dist/{{</code>}}&#8201; are moved over to {{<code>}}src/main/resources/static{{</code>}}&#8201; so that the backend server can serve them at 8080.
 
 ### GraalVM
 
@@ -71,7 +71,7 @@ Electron integration means some new files and {{<code>}}package.json{{</code>}}&
     "description": "MusicReleaseTracker",
     "main": "electron-main.js",
 
-Name can't contain capital letters. Version has to be in the semantic versioning format. {{<code>}}main{{</code>}} points to the entry point of electron. I recommend giving it an obvious name, so it cannot get confused with other main.js, index.js and config.js files.
+Name can't contain capital letters. Version has to be in the semantic versioning format. {{<code>}}main{{</code>}}&#8201; points to the entry point of electron. I recommend giving it an obvious name, so it cannot get confused with other main.js, index.js and config.js files.
 
 In the script section, one can specify simple scripts and their names. To run electron for development I type {{<code>}}npm run electron{{</code>}}. The script {{<code>}}distExe{{</code>}}&#8201; packages an executable and {{<code>}}distInstaller{{</code>}}&#8201; also creates an installer.
 
