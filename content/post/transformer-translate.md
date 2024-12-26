@@ -318,7 +318,7 @@ def download(model_name):
     snapshot_download(repo_id=repo, local_dir=folder, cache_dir=None)
 ```
 
-The model files and user settings are stored in {{<code>}}AppData{{</code>}} so that they are decoupled from the source code folder.
+The model files and user settings are stored in {{<code>}}AppData{{</code>}}&#8201; so that they are decoupled from the source code folder.
 
 ### Assessment
 
