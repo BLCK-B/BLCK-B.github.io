@@ -63,7 +63,7 @@ export default defineConfig({
 
 My app previously used the browser for rendering its UI. While a valid offloading approach, it creates more friction for users. I used the opportunity and integrated Electron. As you will see, Electron-related tools bring convenient functions for distribution.
 
-Electron integration means some new files and {{<code>}}package.json{{</code>}}&#8201; additions. First, the [electron-builder](https://github.com/electron/forge) I use, and its alternative [electron forge](https://github.com/electron/forge), need the following in {{<code>}}package.json{{</code>}}.
+Electron integration means some new files and {{<code>}}package.json{{</code>}}&#8201; additions. First, the [electron-builder](https://github.com/electron-userland/electron-builder) I use, and its alternative [electron forge](https://github.com/electron/forge), need the following in {{<code>}}package.json{{</code>}}.
 
     "author": "BLCK",
     "name": "mrt",
