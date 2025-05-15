@@ -21,7 +21,7 @@ title = "My projects:"
   </a>
 
   <a href="https://github.com/BLCK-B/Prescient-VST" target="_blank" style="display: flex; align-items: center; text-decoration: none; height: 110px;">
-    <img src="/Prescientlogo.png" height="80" width="80" style="border-radius: 5px; margin-right: 20px;" alt="logo">
+    <img src="/prescientlogo.png" height="80" width="80" style="border-radius: 5px; margin-right: 20px;" alt="logo">
     <div style="line-height: 1.2;">
       <h3 style="margin: 0; padding: 0;">Prescient VST</h3>
       <p style="margin: 0px; padding: 0;">Real-time vocoder plugin with pitch shifting.</p>
