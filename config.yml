@@ -1,7 +1,8 @@
 baseURL: "https://blck-b.github.io/"
 author: "BLCK"
 copyright: " "
-paginate: 8
+pagination:
+  pagerSize: 8
 languageCode: "en"
 DefaultContentLanguage: "en"
 enableInlineShortcodes: true

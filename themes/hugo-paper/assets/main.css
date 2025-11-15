@@ -1623,9 +1623,7 @@ pre {
 }
 
 article {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  line-height: 1.8;
+  font-size: 1rem;
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
@@ -1637,8 +1635,7 @@ article:is(.dark *) {
 
 article code {
   display: inline-block;
-  font-size: 0.875rem !important;
-  line-height: 1.5rem !important;
+  font-size: 0.8rem !important;
 }
 
 article .highlight {
