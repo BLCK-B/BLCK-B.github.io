@@ -42,6 +42,10 @@ void securityContextRetention() {
 }
 ```
 
+## A note on reactive Spring
+
+Spring JPA is a synchronous, blocking ORM framework. Reactive DB access requires R2DBC which doesn't have the powerful abstractions like mapping annotations. Think twice about the benefits of reactivity. You almost certainly won't need it.
+
 ## Authentication objects and server-side session
 
 **ServerSecurityContextRepository** is an interface with two methods to save and load a **SecurityContext**. The servlet implementation of **ServerSecurityContextRepository** is **HttpSessionSecurityContextRepository**. In Spring WebFlux, use the **WebSessionServerSecurityContextRepository**.
@@ -58,7 +62,7 @@ SecurityContextHolder
                └── Credentials
 ```
 
-During a user login, **Authentication** is processed by an implementation of the interface **AuthenticationManager**, or in WebFlux, **ReactiveAuthenticationManager**. This code snippet shows how server-managed session implementation might work:
+During a user login, **Authentication** is processed by the interface **AuthenticationManager**, or in WebFlux, **ReactiveAuthenticationManager**. This code snippet shows how server-managed session might work:
 
 ```java
 @PostMapping("/login")
@@ -149,7 +153,7 @@ The session persistence can be verified on a testing endpoint. **AuthenticationP
 public class UserController {
 
     @GetMapping("/userAccountInfo")
-        public Mono<String> getUserAccountInfo(@AuthenticationPrincipal UserDetails userDetails) {
+    public Mono<String> getUserAccountInfo(@AuthenticationPrincipal UserDetails userDetails) {
             return Mono.just(userDetails.getUsername());
     }
 ```
@@ -202,9 +206,9 @@ public class SecurityConfiguration {
 
 ---
 
-## Session-less context persistence: JWT
+## JWT: session-less context persistence
 
-Another approach is persisting authentication state in JSON Web Tokens. A JWT is a cryptographically signed token stored client-side. JWTs allow the backend to remain stateless. If the JWT is configured to be stored in a cookie with `same-site` attribute and  `httpOnly: true` to set it as inaccessible by code, CSRF becomes redundant. Cookie handling of JWT in Spring requires further setup:
+Another approach is persisting the authentication state in JSON Web Tokens. A JWT is a cryptographically signed token stored client-side. JWTs allow the backend to remain stateless. If the JWT is configured to be stored in a cookie with **same-site:strict** and  **httpOnly:true** attributes to make it inaccessible by code, CSRF becomes redundant. Cookie handling of JWT in Spring requires further setup:
 
 ```java
 public Mono<String> loginUser(ServerWebExchange exchange, Authentication authentication) {
@@ -294,6 +298,21 @@ public JwtEncoder jwtEncoder() {
 public ReactiveJwtDecoder reactiveJwtDecoder() {
     SecretKeySpec secretKey = new SecretKeySpec(jwtSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
     return NimbusReactiveJwtDecoder.withSecretKey(secretKey).build();
+}
+```
+
+```java
+@Component
+public class CookieServerAuthenticationConverter implements ServerAuthenticationConverter {
+	@Override
+	public Mono<Authentication> convert(ServerWebExchange exchange) {
+		return Mono.justOrEmpty(exchange
+						.getRequest()
+						.getCookies()
+						.getFirst(String.valueOf(JWT_COOKIE_NAME)))
+				.map(HttpCookie::getValue)
+				.map(BearerTokenAuthenticationToken::new);
+	}
 }
 ```
 
