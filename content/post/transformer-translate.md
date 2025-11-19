@@ -3,7 +3,7 @@ title = "Building an EPUB translator for 200+ languages with Transformers"
 date = "2024-12-26"
 +++
 
-Here I describe the key steps for building an EPUB translator utility in Python. Other open source projects I found all use an API of [Google Translate](https://github.com/quantrancse/epub-translator), [DeepL Translate](https://github.com/sharplab/epub-translator) or [ChatGPT](https://github.com/yihong0618/bilingual_book_maker). With the advances in AI and Transformer models, my idea is to create a locally-run ebook translator using multilingual translation models on a single GPU.
+Here I describe the key steps in building an EPUB translator utility in Python. Other open source projects I found all use an API of [Google Translate](https://github.com/quantrancse/epub-translator), [DeepL Translate](https://github.com/sharplab/epub-translator) or [ChatGPT](https://github.com/yihong0618/bilingual_book_maker). With the advances in AI and Transformer models, my idea is to create a locally-run ebook translator using multilingual translation models on a single GPU.
 
 ---
 
