@@ -87,7 +87,7 @@ The models are hosted on my [Hugging Face Hub](https://huggingface.co/BLCK-B).
 
 ### Hardware
 
-I decided later in the development to allow inference only on a GPU. Some configurations, though not all, can be run on CPU. CPU inference is slower by orders of magnitude without further [optimisation](https://huggingface.co/docs/transformers/en/perf_infer_cpu).
+I decided later in the development to allow inference only on a GPU. Some configurations, though not all, can be run on CPU. CPU inference is slower by orders of magnitude, and won't ever match a GPU. Though it can be optimised [somewhat](https://huggingface.co/docs/transformers/en/perf_infer_cpu).
 
 Nvidia (CUDA) GPUs work best with the setup. As for AMD, PyTorch and the extra dependencies introduced with quantized models are theoretically compatible according to their documentations. This is assuming a system with ROCm compatible AMD card in combination with the operating system. ROCm is available for most of [RX and Pro cards on Windows](https://rocm.docs.amd.com/en/docs-5.7.0/release/windows_support.html). Options on Linux are even [more limited](https://rocm.docs.amd.com/en/docs-5.7.0/release/gpu_os_support.html).
 
@@ -305,9 +305,9 @@ A prime example of hallucination. Here, the word _Sergeant_ led to the addition 
 
 ### Distribution
 
-Packaging the tool into a contained format is not feasible. The dependencies have many versions for different systems. A user has to download the source code, Python and the dependencies specified in **requirements.txt**. The quantization dependencies could at least be lazy-downloaded with the models in future versions. The source code download-to-update approach also simplifies the updating of **language_codes.json**.
+Packaging the tool into a contained format is not feasible. The dependencies have many versions for different systems. A user has to download the source code, Python and the dependencies specified in **requirements.txt**. The quantization dependencies could at least be lazy-downloaded with the models.
 
-The models are optional and can be downloaded from the program. The **[huggingface-hub](https://huggingface.co/docs/huggingface_hub/en/guides/download)** introduces a convenient way to download the model files:
+The models are optional and can be downloaded from the program. The **[huggingface-hub](https://huggingface.co/docs/huggingface_hub/en/guides/download)** introduces a convenient way to download the files:
 
 ```python
 from huggingface_hub import snapshot_download
@@ -318,17 +318,15 @@ def download(model_name):
     snapshot_download(repo_id=repo, local_dir=folder, cache_dir=None)
 ```
 
-The model files and user settings are stored in **AppData** so that they are decoupled from the source code folder.
-
 ### Assessment
 
 {{<tip>}}You can view the project's source code [here](https://github.com/BLCK-B/Moerkepub/tree/2320d16400f8023362bf1ff426a53a9a7d8e8471).{{</tip>}}
 
 The main task – EPUB translation – works well. There are many areas of improvement, some of them already noted. For one, sentence detection could be made better and tested on languages with other sentence endings. EPUBs with nonstandard structuring are handled quite well otherwise. Special case is poetry that typically has rows of flowing text that is difficult to process without breaking formatting.
 
-Translation speed is rather slow even on a GPU. I will experiment with different batch sizes and several sentences. Processing more sentences together could not only be faster – the model could pick up more context. So far, I did not find a reliable way to do that. Then, a simple benchmark integrated in the tool for quality testing seems to be necessary for any fine tuning and configuration changes.
+Translation speed is rather slow even on a GPU. If possible, processing more sentences together could not only be faster – the model could also pick up more context. I did not find a reliable way to do that. A simple benchmark integrated in the tool for quality testing would be necessary for any fine-tuning and configuration changes.
 
-Improvements can be made in:
+Improvements could be made in:
 
 - sentence and edge case handling
 - bilingual paragraph processing
@@ -336,4 +334,4 @@ Improvements can be made in:
 - quality testing and configuration
 - dependencies setup and compatibility
 
-The code is set up for easy implementation of new models. Given the speed of developments, it will not be long until a better model comes along. All in all, the translator works well, and the output quality is comparable to the online translator services.
+The code is set up for easy extension with new models. Given the speed of developments, it should not be long until a better model comes along. All in all, the translator works well. I conclude from personal testing that the output quality is comparable to the online translator services.

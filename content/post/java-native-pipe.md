@@ -3,39 +3,39 @@ title = "From Jar to native cross-platform Java with pipeline"
 date = "2024-09-18"
 +++
 
-Java has come a long way. At the moments when I consider which stack is best suited for a new project, Java's lack of good distribution options causes me to hesitate. New technologies in the Java ecosystem as well as from the broader scope can greatly help. Here, I will share how I built a pipeline to automate the distribution of my Java project.
+Distribution of Java programs was not its strength. But new technologies in the Java ecosystem opened up more possibilities than just a simple jar. Here, I will share how I built a pipeline to automate the distribution of my Java project.
 
 ---
 
-### Motivation
+## Motivation
 
-Everyone has to start somewhere. When I began developing my app, I did so with the "next generation" JavaFX. In retrospect, it was the correct choice, if only for the lessons learned. I will describe the old distribution solution to give you a sense of how things have improved since.
+When I began developing my app, I did so with the "next generation" JavaFX. In retrospect, it was the correct choice, if only for the lessons learned. I will describe the old distribution solution to give you a sense of how things have improved since.
 
 Java code is compiled and packaged into a jar that can be simply distributed for systems with a JRE. That was my hopeful reasoning. JRE is no [longer provided](https://docs.oracle.com/en/java/javase/11/migrate/index.html) and JavaFX is not a part of the JDK since [version 11](<(https://www.oracle.com/java/technologies/javase/11-relnote-issues.html)>). And the dependencies were not present in the jar I was trying to export. Some of these issues were solved by specifying manifests, source directories and other uninteresting bits. I learned that what I needed was a fat / shaded / uber jar. A [fat jar](https://dzone.com/articles/the-skinny-on-fat-thin-hollow-and-uber) means including the app's dependencies in the jar. Newer solutions like [executable Spring jar](https://docs.spring.io/spring-boot/docs/3.2.7-SNAPSHOT/reference/html/executable-jar.html) are essentially that.
 
-In any case, JavaFX [requires a JDK](https://openjfx.io/openjfx-docs/). Furthermore, I wanted to distribute an exe file. Converting jar to an exe is no easy feat. [Launch4j](https://launch4j.sourceforge.net/) is a tool made for this task. My attempts to create exe up to spec failed and I ended up with a hardcoded JDK path. For convenience, I made an installer in [InnoSetup](https://jrsoftware.org/isinfo.php). I consider creating installers from ground up a waste of time.
+In any case, JavaFX [requires a JDK](https://openjfx.io/openjfx-docs/). Furthermore, I wanted to distribute an exe file. Converting jar to an exe is no easy feat. [Launch4j](https://launch4j.sourceforge.net/) is a tool made for this task. My attempts to create exe up to spec failed and I ended up with a hardcoded JDK path. For convenience, I made an installer in [InnoSetup](https://jrsoftware.org/isinfo.php). Creating installers, step by step, and testing them consumes a lot of time.
 
-It soon appeared that my installer's JDK path picker did nothing at all, and the exe searched exclusively at **C:/Program Files/Java/jdk-20**. It was at this time that I had a better overview and also reached the limits of JavaFX. JavaFX does not have superior performance, obvious cross-platform distribution nor inspiring GUI looks. It is relatively easy to hack together, with the UI code in an adjacent Java class. RAM consumption was ~100 MB, even after heap size adjustment in Launch4j. The baggage of JDK was also something I wanted to avoid.
+Furthermore, it soon appeared that my installer's JDK path picker did nothing at all, and the exe searched exclusively at **C:/Program Files/Java/jdk-20**. It was at this time that I had a better overview and also reached the limits of JavaFX. JavaFX does *not* have superior performance, obvious cross-platform distribution and especially not good GUI experience. It is relatively easy to hack together, with the UI code in an adjacent Java class. RAM consumption was ~100 MB, even after heap size adjustment in Launch4j. The baggage of JDK was also something I wanted to avoid.
 
 ---
 
-### Tech stack
+## Tech stack
 
-Replacing the JavaFX GUI meant stepping outside the Java ecosystem and turning to a JavaScript frontend framework like Angular, React, Vue.js. Developing a web interface with these tools comes with many benefits. I decided to use Vue.js with Vite for the frontend, paired with Spring Boot for the backend.
+Replacing the JavaFX GUI meant stepping outside the Java ecosystem and turning to a JavaScript frontend framework. Developing a web interface with these tools comes with many benefits. I decided to use Vue.js with Vite for the frontend, paired with Spring Boot for the backend.
 
-In this setup, frontend and backend run on separate local servers. For this post I will use Spring Tomcat server's [default port](https://docs.spring.io/spring-boot/docs/1.3.0.RELEASE/reference/html/howto-properties-and-configuration.html) 8080. Likewise, Vite in the frontend provides a server that serves the Vue.js files at 5173. These two local servers communicate via HTTP. To view the GUI itself, it's as easy as visiting localhost:5173 in a browser.
+With this setup, frontend and backend run on separate local servers. For this post I will use Spring Tomcat server's [default port](https://docs.spring.io/spring-boot/docs/1.3.0.RELEASE/reference/html/howto-properties-and-configuration.html) 8080. Likewise, Vite serves the Vue.js files at 5173.
 
 Switching from JavaFX to Vue.js also allowed me to drop the need for the JDK. Vite handles building optimized static files for the frontend, which are then placed in the **dist/** directory. These files exported to **dist/** are moved over to **src/main/resources/static** so that the backend server can serve them at 8080.
 
-### GraalVM
+## GraalVM
 
-Not long after, I came across [GraalVM](https://www.graalvm.org/). For my use case, it can compile code to a native executable (exe on Windows). It is a distinct JDK with ahead-of-time compilation. The compilation time is longer but the result is a program with no warmup time. Graal generated executable starts almost instantly. Generally, GraalVM's primary use is for microservice architectures to reduce the cloud bills.
+I also came across [GraalVM](https://www.graalvm.org/). It is a distinct JDK with ahead-of-time compilation. For my use case, it can compile code to a native executable (exe on Windows). The compilation time is longer but the result is a program with no warmup time. A Graal-generated executable starts instantly. It's not the intended use case, but it works for native compilation.
 
 ---
 
-### What to automate
+## Automating the manual process
 
-I pivoted to these technologies and even made a new [NSIS](https://nsis.sourceforge.io/Main_Page) installer. The state of my app was better than before, but the manual steps of distribution were still many:
+I pivoted to these technologies and even made a new [NSIS](https://nsis.sourceforge.io/Main_Page) installer. The state of my app was better than before, but the manual steps of distribution were tedious:
 
 - Build static frontend files.
 - Move these files to **/resources/static**.
@@ -47,7 +47,7 @@ I pivoted to these technologies and even made a new [NSIS](https://nsis.sourcefo
 - Go back to build the bootJar for other platforms.
 - Finally, upload and make a release.
 
-It goes without saying that a human is inefficient and unreliable at performing repeated tasks. Any discovered defect meant that I needed to do the steps again. A lot of time was wasted. [Automated pipelines](https://goodreads.com/book/show/56771495-continuous-delivery-pipelines---how-to-build-better-software-faster) come to the rescue. Over time, I automated most of the steps so that my input is reduced to more or less one click.
+It goes without saying that a human is inefficient and unreliable at doing repeated tasks. Any  mistake meant that I had to do the steps over. A lot of time was wasted. [Automated pipelines](https://goodreads.com/book/show/56771495-continuous-delivery-pipelines---how-to-build-better-software-faster) come to the rescue. Over time, I automated most of the steps so that my input is reduced to more or less one click.
 
 A good first step is to set the [output dir](https://vitejs.dev/config/build-options#build-outdir) in **vite.config.js** or equivalent config. I pointed it to the backend location so that I don't have to copy the static files manually.
 
@@ -59,11 +59,11 @@ export default defineConfig({
     },
 ```
 
-### Electron
+## Electron
 
-My app previously used the browser for rendering its UI. While a valid offloading approach, it creates more friction for users. I used the opportunity and integrated Electron. As you will see, Electron-related tools bring convenient functions for distribution.
+My app previously used the browser for rendering its UI (opened a browser tab at localhost). While a valid offloading approach, it creates more friction for users. I used the opportunity and integrated Electron. Electron-related tools bring even more convenient functions for distribution.
 
-Electron integration means some new files and **package.json** additions. First, the [electron-builder](https://github.com/electron-userland/electron-builder) I use, and its alternative [electron forge](https://github.com/electron/forge), need the following in **package.json**.
+Electron requires some new files and **package.json** additions. First, the [electron-builder](https://github.com/electron-userland/electron-builder) I use, and its alternative [electron forge](https://github.com/electron/forge), need the following in **package.json**:
 
     "author": "BLCK",
     "name": "mrt",
@@ -73,7 +73,7 @@ Electron integration means some new files and **package.json** additions. First,
 
 Name can't contain capital letters. Version has to be in the semantic versioning format. **main** points to the entry point of electron. I recommend giving it an obvious name, so it cannot get confused with other main.js, index.js and config.js files.
 
-In the script section, one can specify simple scripts and their names. To run electron for development I type **npm run electron**. The script **distExe** packages an executable and **distInstaller** also creates an installer.
+This is the script section. To run electron for development, I type **npm run electron**. The script **distExe** packages an executable and **distInstaller** goes further to create an installer:
 
     "scripts": {
         "dev": "vite",
@@ -86,13 +86,13 @@ In the script section, one can specify simple scripts and their names. To run el
 
 ---
 
-### The pipe
+## The pipe
 
-The pipeline is made in [GitHub actions](https://docs.github.com/en/actions/writing-workflows/quickstart). You may need some knowledge of the syntax to fully understand the code.
+The pipeline is made in [GitHub actions](https://docs.github.com/en/actions/writing-workflows/quickstart).
 
 <img src="/java-native-pipe/pipegit.png" width="500" style="border-radius: 6px;" alt="Github pipeline">
 
-We want to create some reference for testing because native compilation is expensive. So, optionally only the jar can be built. Native executables are built for the three operating systems, and only after all builds pass, a release is drafted.
+We want to create some reference for testing because native compilation is expensive. So, optionally only the jar can be built. Native executables are built for the three operating systems, and only after all builds pass, a release is drafted:
 
 ```yaml
 name: distribution
@@ -109,7 +109,7 @@ on:
         default: "yes"
 ```
 
-The workflow is run manually. Running GraalVM with every pull request makes no sense here. Java is specified only once as environment variable, other tool's versions are set to latest.
+The workflow is run manually. Running GraalVM with every pull request makes no sense. Java is specified only once as an environment variable. Other tool's versions are set to latest.
 
 ```yaml
 env:
@@ -118,7 +118,7 @@ env:
 
 ---
 
-The first job **build-jar** sets up the JDK and gradle. A bootJar is built, then uploaded with the **upload-artifact** action. The last line specifies the jar path on the runner. Notice the wildcard – because the output file contains version. Uploading means uploading an artifact, which is stored temporarily and is available for other jobs as well as for download.
+The first job **build-jar** sets up the JDK and Gradle. A bootJar is built, then uploaded with the **upload-artifact** action. The last line specifies the jar path on the runner. Notice the presence of wildcard - because the output file contains version. Uploading means uploading an artifact, which is stored temporarily and is available for other jobs as well as for download.
 
 {{<tip>}}Artifacts are accessible only in the scope of a workflow.{{</tip>}}
 
@@ -157,7 +157,7 @@ For **upload-artifact**, the wildcard rules are:
 
 ---
 
-In the next job, the native build is invoked. [Cross-compilation](https://www.electron.build/multi-platform-build.html) is not easily possible, if at all. GitHub-hosted runners are great for this purpose. A [matrix](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/running-variations-of-jobs-in-a-workflow) acts like a loop. It repeats actions with different inputs.
+In the next job, the native build is invoked. [Cross-compilation](https://www.electron.build/multi-platform-build.html) is not really possible. GitHub-hosted runners are great for this purpose. A [matrix](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/running-variations-of-jobs-in-a-workflow) acts like a loop. It repeats actions or runs them parallel with different inputs.
 
 ```yaml
 native-and-electron:
@@ -170,7 +170,7 @@ native-and-electron:
   steps:
 ```
 
-GraalVM JDK setup is handled by **[setup-graalvm](https://github.com/graalvm/setup-graalvm)**. Npm dependencies specified in **package.json** need to be installed. Command **[npm ci](https://docs.npmjs.com/cli/v10/commands/npm-ci)** is better suited for pipelines than **npm install**. Because my **package.json** is not in the root dir, I need to change to the **vue** directory first.
+GraalVM JDK setup is handled by **[setup-graalvm](https://github.com/graalvm/setup-graalvm)**.
 
 ```yaml
 - uses: actions/checkout@v4
@@ -191,7 +191,7 @@ GraalVM JDK setup is handled by **[setup-graalvm](https://github.com/graalvm/set
       npm ci
 ```
 
-The command **nativeCompile** initiates the GraalVM compilation. Generated executable's extension is .exe on Windows. On Linux and MacOS there is no extension. The first wildcard in the following code is for version, second is for the extension. The executable is generated in **build/native/nativeCompile**.
+The **nativeCompile** command initiates the GraalVM compilation. Generated executable's extension is .exe on Windows. On Linux and MacOS there is no extension. The first wildcard in the following code is for version, the second is for the extension. The executable is generated in **build/native/nativeCompile**.
 
 {{<tip>}}Native image extension on Windows is .exe while Linux and MacOS have none.{{</tip>}}
 
@@ -247,11 +247,11 @@ Confused about artifact names? File is uploaded with an artifact name. The web i
 {{<tip>}}GitHub artifact is stored as a ZIP. After uploading and downloading a file with artifact actions,
 you are left with the same file with its original name.{{</tip>}}
 
-This is the end of the pipeline. Be aware, however, that I omitted some lines. I will get to them shortly. So, sit back and dive into the details.
+This is the end of the pipeline. Be aware, however, that I omitted some lines. I will get to them now.
 
 ---
 
-### Native from jar rather than from source
+## Native executable from jar rather than from source
 
 The initial intent was to build the bootJar and to upload it as an artifact. The **native-and-electron** job could download it and [build native from a JAR](https://www.graalvm.org/latest/reference-manual/native-image/guides/build-native-executable-from-jar/) instead of compiling from source. If you try this, you will be met with:
 
@@ -271,9 +271,9 @@ In a Spring executable jar, the [classpath](https://docs.spring.io/spring-boot/d
 
 Whereas GraalVM searches the entry class at **com.blck.MRT.Main.class**. The issue is the extended structure of this jar. You could try a [custom shaded jar](https://stackoverflow.com/questions/76026874/graalvm-error-main-entry-point-class-org-example-main-neither-found-on-the-cl) or follow the docs. [AOT is another concern](https://www.graalvm.org/latest/reference-manual/native-image/guides/build-native-executable-from-jar/). I deem source compilation much simpler.
 
-### Electron-builder config
+## Electron-builder config
 
-One can configure electron-builder in **package.json**. Everything happens in **build**. The options can be found in the [docs](https://www.electron.build/). The excerpt shows how to set an output file name. The **${version}** is taken from the version higher up. The **.${ext}** means that the extension will match the original file's extension. I named the **/buildResources** folder, where additional build files and scripts exist, well, **buildResources**. **output**, that means the temporary build files and the installer, is set to the folder **/distribution**. Each platform has its tag where one can apply any options from the docs. Windows installers can be NSIS or MSI. And it has icon embedding! Another manual step was eliminated.
+Electron-builder can be configured in **package.json**. Everything is specified in **build**. The options can be found in the [docs](https://www.electron.build/). The following excerpt shows how to set an output file name. The **${version}** is taken from the version higher up. The **.${ext}** means that the extension will match the original file's extension. I named the **/buildResources** folder, where additional build files and scripts exist, well, **buildResources**. **output**, that means the temporary build files and the installer, is set to the folder **/distribution**. Each platform has its tag where one can apply any options from the docs. Windows installers can be NSIS or MSI. And it has icon embedding! Another manual step eliminated.
 
     "build": {
         "directories": {
@@ -296,7 +296,7 @@ One can configure electron-builder in **package.json**. Everything happens in **
         "mac": { ... }
     },
 
-### Path strategy
+## Path strategy
 
 This is the project's file structure.
 
@@ -337,7 +337,7 @@ app.whenReady().then(() => {
 
 Notably, the fileName's extension there does not need to be specified. To sum up, backend file is moved to **buildResources**, where I already have icons and other resources for electron-builder. Built installers are located in **distribution**. Once all installers are ready, a release is drafted. The bootJar from the first action is located in **build/libs**.
 
-### Point electron to port or index
+## Point electron to port or index
 
 There is the option of electron serving the static frontend files itself and the option of connecting to a port, like a browser previously.
 
@@ -349,20 +349,20 @@ function createWindow() {
 
 I don't see much difference here. I tried the former but couldn't get it to work properly. Surprising no one, the backend has to be running before **loadUrl** is called.
 
-### Possible race condition
+## Possible race condition
 
-Every backend needs some time to initialise. Creating an electron window that calls the backend almost immediately can cause a race condition. Therefore, we should ensure that calls can be sent only once the backend is prepared:
+Backend will always need some time to initialise. Creating an electron window that calls the backend immediately can cause a race condition. Therefore, we should ensure that calls can be sent only once the backend is prepared:
 
 ```javascript
 await checkBackendReady();
 createWindow();
 ```
 
-In my project, a quick fix involves waiting for a promise to resolve. The **checkBackendReady()** uses polling of a boolean check. A better solution is a server-sent event listener.
+In my project, I set up simple polling of an endpoint **checkBackendReady**. It's as good a solution as it gets with a REST controller.
 
-### CORS policy
+## CORS policy
 
-For most of the time, I developed with Firefox. In Chrome, I ran into an issue of a missing CORS (Cross-site resource sharing) security policy. This could be due to different browser configurations. This measure prevents access to resources from a different port, like an axios request from 5173 to 8080. If you encounter this issue, set up a [Spring CORS proxy](https://spring.io/guides/gs/rest-service-cors#global-cors-configuration) that reroutes the requests to the origin port.
+It's inevitable that we run into an issue of a missing CORS (Cross-site resource sharing) security policy. This measure prevents access to resources from a different port, like an axios request from 5173 to 8080. If you encounter this issue, set up a [Spring CORS proxy](https://spring.io/guides/gs/rest-service-cors#global-cors-configuration) that reroutes the requests to the origin port. The most basic setup:
 
 ```java
 @Bean
@@ -376,13 +376,20 @@ For most of the time, I developed with Firefox. In Chrome, I ran into an issue o
   }
 ```
 
-### GraalVM AOT
+## GraalVM AOT
 
 So far, I omitted steps handling GraalVM AOT (ahead of time) compilation.
 
 > The Native Image tool relies on static analysis of an application’s reachable code at runtime. However, the analysis cannot always completely predict all usages of the Java Native Interface (JNI), Java Reflection, Dynamic Proxy objects, or class path resources.
 
 External resources can cause the compiled program to break. You may encounter an error like **Uncaught (in promise) TypeError: thing is undefined**. With external resources, you should provide tracing information to the AOT compiler.
+
+### Placing frontend files outside the Spring's resources
+
+This section was added long after the original post because I found a better way to avoid Graal affecting JS files. I still left the old section there, but you can safely skip to "Wrapping up".
+ The simple solution is to do native compile, then build the frontend and move the static files to the same dir as the executable. This requires configuration in Spring as well as Electron/executable path handling. Please refer to the [source code](https://github.com/BLCK-B/MusicReleaseTracker) to find the working implementation.
+
+### The unreliable way
 
 The information is generated by [tracing agent](https://www.graalvm.org/latest/reference-manual/native-image/metadata/AutomaticMetadataCollection/). What worked for me is running the bootJar with Gradle argument:
 
@@ -396,7 +403,7 @@ This generates the information in **/tracing** at root. You should verify the fi
 
 GraalVM will register the config files at **build/resources/aot/META-INF/native-image**. You can verify it additionally by compiling with **[-H:Log=registerResource:3](https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Resources/)**.
 
-Unfortunately, [Vite appends hash](https://vitejs.dev/guide/assets) to static file names. The names are not guaranteed to stay the same. You could change this in Vite or make use of regular expressions.
+Unfortunately, [Vite appends hash](https://vitejs.dev/guide/assets) to static file names. The names will change eventually. I made use of regular expressions and it was effective temporarily.
 
     "pattern":"\\QMETA-INF/resources/assets/index-.*\\.js\\E"
 
@@ -413,18 +420,14 @@ You can put the files in the Git **/build** directory tree and compile only to s
 
 ### Wrapping up
 
-{{<tip>}}You can view the project's source code [here](https://github.com/BLCK-B/MusicReleaseTracker/blob/98db7a88b5196fe068769a497330a4f1622c3cf0/.github/workflows/distribution.yml).{{</tip>}}
+{{<tip>}}You can view the pipeline's source code snapshot [here](https://github.com/BLCK-B/MusicReleaseTracker/blob/98db7a88b5196fe068769a497330a4f1622c3cf0/.github/workflows/distribution.yml).{{</tip>}}
 
 As a result, I only have to launch the workflow and return later for a release confirmation. Virtual runners enable distribution for all platforms. JavaFX is no match for this setup. Interestingly, startup time despite the Electron window is roughly 0.5 s.
 
-Last thing to improve is the development experience. To see a change in Vue.js in Electron window, GraalVM must currently compile a new executable. Remember that Electron is listening on the backend port. Using a [dev environment variable](https://npmjs.com/package/cross-env) to disable the native executable, the window will connect to a local server run from IDE. Then you can use something like [Spring Boot hot reload](https://docs.spring.io/spring-boot/reference/using/devtools.html).
+Last thing to improve is the development experience. To see a change in Vue.js in Electron window, GraalVM would have to compile a new executable. Electron is listening on the backend port - by using a [dev environment variable](https://npmjs.com/package/cross-env) to disable the native executable, Electron will connect to a local dev server:
 
 ```javascript
 app.whenReady().then(() => {
   if (process.env.NODE_ENV !== "development") {
     externalEXE = spawn("buildResources/MusicReleaseTracker", {
 ```
-
-Where is testing? I use trunk based development – protected main – so the code is guaranteed to be passing. I might follow with another post on that topic. ARM architecture is missing in my distribution (except MacOS) but seems to be a relatively simple addition.
-
-I hope you found this useful. Any feedback is welcome.
