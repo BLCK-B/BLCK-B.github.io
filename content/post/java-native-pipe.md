@@ -3,7 +3,7 @@ title = "From Jar to native cross-platform Java with pipeline"
 date = "2024-09-18"
 +++
 
-Distribution of Java programs was not its strength. But new technologies in the Java ecosystem opened up more possibilities than just a simple jar. Here, I will share how I built a pipeline to automate the distribution of my Java project.
+Distribution of Java programs was never its strength. But new technologies in the Java ecosystem brought more possibilities than just a simple jar. Here, I will share how I built a pipeline to automate the distribution of my project.
 
 ---
 
