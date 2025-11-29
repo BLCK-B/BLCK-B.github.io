@@ -9,7 +9,7 @@ Here I describe the key steps in building an EPUB translator utility in Python. 
 
 ### Transformers by Hugging Face 🤗
 
-Transformers is an architecture that allows repurposing already pretrained models. A great introduction to Transformers specifically in relation to NLP is provided in [Natural Language Processing with Transformers](https://www.oreilly.com/library/view/natural-language-processing/9781098136789/). Hugging Face provides convenient infrastructure for sharing, testing and running inference on models from the Hugging Face hub. We are interested in the [machine translation](https://huggingface.co/models?pipeline_tag=translation) category. For the scope of this project, fine-tuned models already exist. The simplest way to import the models in Python, including the tokenizer is with the **AutoTokenizer** class:
+Transformers is an architecture that allows repurposing already pretrained models. A great introduction to Transformers specifically in relation to NLP is provided in [Natural Language Processing with Transformers](https://www.oreilly.com/library/view/natural-language-processing/9781098136789/). Hugging Face provides convenient infrastructure for sharing, testing and running inference on models from the Hugging Face hub. We are interested in the [machine translation](https://huggingface.co/models?pipeline_tag=translation) category. For the scope of this project, fine-tuned models already exist. The simplest way to import the models in Python, including the tokenizer, is with the **AutoTokenizer** class:
 
 ```python
 import transformers
@@ -18,11 +18,11 @@ model = ctranslate2.Translator(model_path, 'cuda')
 tokenizer = transformers.AutoTokenizer.from_pretrained(model_path)
 ```
 
-The model import may be different depending on the library used – in this case CTranslate2. The **model_path** can point to a local directory or to a Hugging Face repository.
+The model import may be different depending on the library – in this case CTranslate2. The **model_path** can point to a local directory or to a Hugging Face repository.
 
 ### EPUB parsing
 
-EPUB and PDF are the most frequently encountered formats of ebooks. Because modifying PDFs is very difficult, the utility will support EPUB for now. An EPUB consists of XHTML, CSS, image and other files. Python's [zipfile](https://docs.python.org/3/library/zipfile.html) is able to deconstruct and reconstruct an EPUB file. [BeautifulSoup4](https://pypi.org/project/beautifulsoup4/) is used for scraping the unzipped XHTML files.
+EPUB and PDF are the usual formats of ebooks. Because modifying PDFs is very difficult, the utility will support only EPUB for now. An EPUB consists of XHTML, CSS, image and other files. Python's [zipfile](https://docs.python.org/3/library/zipfile.html) is able to deconstruct and reconstruct an EPUB file. [BeautifulSoup4](https://pypi.org/project/beautifulsoup4/) is used for scraping the unzipped XHTML files.
 
 The difficulties of processing EPUB files can be illustrated on some examples of XHTML. Well-structured EPUBs consist of several XHTML files that contain paragraphs, each paragraph with one or more sentences:
 
@@ -31,7 +31,7 @@ The difficulties of processing EPUB files can be illustrated on some examples of
 <p>“I say it did,” replied the other. What’s the matter?”</p>
 ```
 
-There is however no enforced standard. The following example is from a real book that contains a single XHTML with the entire text and with seemingly random formatting:
+There is, however, no enforced standard. The following example is from a real book that contains a single XHTML with the entire text and with seemingly random formatting:
 
 ```html
 <p>
@@ -43,7 +43,7 @@ There is however no enforced standard. The following example is from a real book
 </p>
 ```
 
-The {{<rawcode>}}< p >{{</rawcode>}} tags may contain other elements, sometimes with only a different **class**. It should be clear from the example that {{<rawcode>}}< span >{{</rawcode>}} tags can't even be trusted to contain complete words. With a little foresight, we can conclude that 1:1 translation _and_ retaining all of the elements is impossible. Moreover, _8 percent_ is title of a chapter. Having no clear difference other than arbitrary **class** makes parsing harder.
+The {{<rawcode>}}< p >{{</rawcode>}} tags may contain other elements, sometimes only with a different **class**. It should be clear from the example that {{<rawcode>}}< span >{{</rawcode>}} tags can't even be trusted to contain complete words. With a little foresight, we can conclude that 1:1 translation _and_ retaining all the elements is impossible. Moreover, _8 percent_ in the example is a title of a chapter. Having no better differentiator than arbitrary **class** makes parsing harder.
 
 Thankfully, I found that reconstructing on the level of {{<rawcode>}}< p >{{</rawcode>}} keeps most of the formatting intact, even though it removes sentence-level tags. This function illustrates how BeautifulSoup4 can be used to scrape the {{<rawcode>}}< p >{{</rawcode>}} tags:
 
@@ -79,7 +79,7 @@ A preconfigured **translator** is injected to the function along with the **html
 
 ### Selected models
 
-Several machine translation models that support at least 50 languages were considered. Two with the highest output quality were selected: NLLB-200 and small-100. These models support around 200 and 100 languages, respectively. NLLB-200 comes in 600M, 1.3B and 3.3B variants. Although the implementation is identical, NLLB-200-1.3B was chosen for balance in quality, size and performance. The small-100 is based on the M2M100-418M model that did not meet the quality expectations and small-100 also has the benefit of smaller size.
+Several machine translation models that support at least 50 languages were considered. Two with the best output quality were selected: NLLB-200 and small-100. These models support around 200 and 100 languages, respectively. NLLB-200 comes in 600M, 1.3B and 3.3B variants. Although the implementation is identical, NLLB-200-1.3B was chosen for balance in quality, size and performance. The small-100 is based on the M2M100-418M model that did not meet the quality expectations and small-100 also has the benefit of smaller size.
 
 More capable models exist, but resources are a limiting factor. For example, NLLB-200-3.3B takes roughly 15 GB of storage. Loading such a model into memory during inference is not feasible on most personal computers. Quantization was used to significantly reduce the storage and memory requirements without degrading the precision too much. Available CTranslate2 quantized NLLB-200 comes at 1.3 GB and requires around 2 GB of memory. My own quantization of small-100 was done using **bitsandbytes** as per the Hugging Face [tutorial](https://huggingface.co/docs/transformers/en/quantization/bitsandbytes). Its quantized size is approximately 600 MB.
 
@@ -87,17 +87,17 @@ The models are hosted on my [Hugging Face Hub](https://huggingface.co/BLCK-B).
 
 ### Hardware
 
-I decided later in the development to allow inference only on a GPU. Some configurations, though not all, can be run on CPU. CPU inference is slower by orders of magnitude, and won't ever match a GPU. Though it can be optimised [somewhat](https://huggingface.co/docs/transformers/en/perf_infer_cpu).
+I decided later during the development to allow inference only on a GPU. Some configurations, though not all, can be run on CPU. CPU inference is slower by orders of magnitude, and won't ever match a GPU. Though it can be optimised [somewhat](https://huggingface.co/docs/transformers/en/perf_infer_cpu).
 
 Nvidia (CUDA) GPUs work best with the setup. As for AMD, PyTorch and the extra dependencies introduced with quantized models are theoretically compatible according to their documentations. This is assuming a system with ROCm compatible AMD card in combination with the operating system. ROCm is available for most of [RX and Pro cards on Windows](https://rocm.docs.amd.com/en/docs-5.7.0/release/windows_support.html). Options on Linux are even [more limited](https://rocm.docs.amd.com/en/docs-5.7.0/release/gpu_os_support.html).
 
-Thanks to my friend Fjuro, I could test the behaviour on a Windows system with AMD card. The **bitsandbytes** quantization dependency reported "Only Intel CPU is supported by BNB at the moment". Processor is therefore also a factor in compatibility. The dependency CTranslate2 accepts only hardware options in its constructor: **_device_: Device to use (possible values are: cpu, cuda, auto)**. **_device_=cuda** throws an exception related to CUDA driver and **_device_=auto** defaults to CPU. The conclusion: ROCm support is patchy.
+Thanks to my friend Fjuro, I could test the behaviour on a Windows system with AMD card. The **bitsandbytes** quantization dependency reported "Only Intel CPU is supported by BNB at the moment". CPU is another factor in compatibility. The dependency CTranslate2 accepts only hardware options in its constructor: **_device_: Device to use (possible values are: cpu, cuda, auto)**. **_device_=cuda** throws an exception related to CUDA driver and **_device_=auto** defaults to CPU. The conclusion: ROCm support is patchy.
 
 ### Translation
 
-A model usually trims the input that exceeds the maximum token limit. The token count of an input can be found from the tokenizer. In my experience, inputs with several sentences yield inconsistent results, often skipping sentences even with the token constraint. For this reason, the program translates sentence by sentence.
+A model usually trims the input that exceeds the maximum token limit. The token count of a given input can be found from the tokenizer. In my experience, inputs with several sentences yield inconsistent results, often skipping sentences no matter the token constraint. For this reason, the utility translates sentence by sentence.
 
-Because the contents of {{<rawcode>}}< p >{{</rawcode>}} tags may contain more sentences, some logic must be able to split the text to individual sentences. This must work reasonably well for hundreds of languages. For sentence detection, I implemented [NLTK's punkt module](https://www.nltk.org/api/nltk.tokenize.punkt.html):
+Because the contents of {{<rawcode>}}< p >{{</rawcode>}} tags may contain more sentences, the code must be able to split the text to individual sentences. This must work reasonably well for hundreds of languages. For sentence detection, I implemented [NLTK's punkt module](https://www.nltk.org/api/nltk.tokenize.punkt.html):
 
 ```python
 import nltk
@@ -175,7 +175,7 @@ One may ask what happens when a model returns a different number of sentences, w
 
 ### Language codes
 
-There is one interesting issue that stems from the need to identify and work with hundreds of languages. Even the two currently implemented models use very different language codes. Finnish is denoted as `__fi__` in the M2M100's tokenizer while in NLLB200's tokenizer, the code is `fin_Latn`. The tokenizer's language codes can be acquired in code:
+There is one interesting issue that stems from the need to work with hundreds of languages. Even the two currently implemented models use very different language codes. Finnish is denoted as `__fi__` in the M2M100's tokenizer while in NLLB200's tokenizer, the code is `fin_Latn`. The tokenizer's language codes can be acquired in code:
 
 ```python
 def get_language_codes():
@@ -183,7 +183,7 @@ def get_language_codes():
     return tokenizer.additional_special_tokens
 ```
 
-A user of the tool must best able to select the language without searching for the specific code in hundreds of languages. Some ISO standards exist for language identification, namely **ISO 639-3** with a [helpful website search](https://iso639-3.sil.org/). I downloaded a dataset with these codes in three frequently used formats and the full english names. The codes from model's tokenizer are compared with the contents of **language_codes.json** and any missing languages are reported.
+A user must be able to select the language without searching for the specific code in hundreds of languages. Some ISO standards exist for language identification, namely **ISO 639-3** with a [helpful website search](https://iso639-3.sil.org/). I downloaded a dataset with these codes in three frequently used formats and the full english names. The codes from model's tokenizer are compared with the contents of **language_codes.json** and any missing languages are reported.
 
 Data in **language_codes.json**:
 
@@ -235,7 +235,7 @@ The mapped data can be searched by any of the codes or the english name. I creat
 
     user input: ta
 
-This works even for the case when one language has different scripts (`taq_Latn`, `taq_Tfng`). User types until a single language is matched and confirms. The language code for the model **model_key** is set as either the source language or target language parameter. The search logic is out of the scope of this post.
+This works even for the case when one language has different scripts (`taq_Latn`, `taq_Tfng`). User types until a single language is matched and confirms. The language code for the model's **model_key** is set as either the source language or target language parameter. The search logic is out of the scope of this post.
 
 ### Initialisation order
 
@@ -320,11 +320,11 @@ def download(model_name):
 
 ### Assessment
 
-{{<tip>}}You can view the project's source code [here](https://github.com/BLCK-B/Moerkepub/tree/2320d16400f8023362bf1ff426a53a9a7d8e8471).{{</tip>}}
+{{<tip>}}You can view the project's source code [here](https://github.com/BLCK-B/Moerkepub/).{{</tip>}}
 
-The main task – EPUB translation – works well. There are many areas of improvement, some of them already noted. For one, sentence detection could be made better and tested on languages with other sentence endings. EPUBs with nonstandard structuring are handled quite well otherwise. Special case is poetry that typically has rows of flowing text that is difficult to process without breaking formatting.
+The main task – EPUB translation – works well. There are many areas for improvement, some of them already noted. For one, sentence detection could be made better and tested on languages with other sentence endings. EPUBs with nonstandard structuring are handled quite well otherwise. Special case is poetry that typically has rows of flowing text that is difficult to process without breaking formatting.
 
-Translation speed is rather slow even on a GPU. If possible, processing more sentences together could not only be faster – the model could also pick up more context. I did not find a reliable way to do that. A simple benchmark integrated in the tool for quality testing would be necessary for any fine-tuning and configuration changes.
+Translation speed is rather slow on a single GPU. If possible, processing more sentences together could not only be faster – the model could also pick up more context. I did not find a reliable way to do that. A simple benchmark integrated in the tool for quality testing would be necessary for any fine-tuning and configuration changes.
 
 Improvements could be made in:
 
