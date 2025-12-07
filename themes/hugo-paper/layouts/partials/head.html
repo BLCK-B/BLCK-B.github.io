@@ -6,6 +6,9 @@
     content="width=device-width, initial-scale=1, shrink-to-fit=no"
   />
 
+  <!--  google verification  -->
+  <meta name="google-site-verification" content="SdgH5ZVEOkLgO02_dB7g7eqpaIK3dngubRF5tbB_Y28" />
+
   <!-- title -->
   <title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
 
@@ -33,7 +36,7 @@
   {{ $custom := resources.Get "custom.css" }}
   <!---->
   {{ $css := slice $main $custom | resources.Concat "main.css" | minify }}
-  <link rel="preload stylesheet" as="style" href="{{ $css.Permalink }}" />
+  <link rel="stylesheet" href="{{ $css.Permalink }}">
 
   <!-- dark icon -->
   {{ $dark_icon := "theme.png" }}
