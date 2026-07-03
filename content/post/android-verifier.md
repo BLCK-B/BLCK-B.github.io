@@ -6,8 +6,8 @@ date = "2026-07-03"
 F-Droid blog has published an article
 titled [What We Talk About When We Talk About Malware](https://f-droid.org/en/2026/07/01/adv-malware.html). The article
 is rather critical and claims that a pre-loaded Android app called *Android Developer Verifier* behaves like a trojan
-horse. The article contains little evidence for its claims. But I would like to give credit for making me aware of the
-app. This post is my analysis of the timeline, policy, and of the decompiled source code.
+horse. The article contains little evidence for its claims. But I would like to give it credit for making me aware of the
+app. This post is my analysis of the Android developer verification timeline, policy, and of the decompiled source code.
 
 The Android Developer Verifier app's version 1.0 was released
 in [July 2012](https://www.apkmirror.com/apk/google-inc/google-package-verifier/). Since October 2025, it has started
@@ -55,7 +55,7 @@ which is not as easily readable.
      java -jar apktool_3.0.2.jar d com.google.android.verifier.apk
 
 I tasked DeepSeek with analysing the decompiled code. Then, I verified the code execution path manually. I also
-referenced my findings to this comprehensive [analysis]() someone already did.
+referenced my findings to this comprehensive [analysis](https://gist.github.com/agnostic-apollo/b8d8daa24cbdd216687a6bef53d417a6) someone already did.
 
 ## Findings
 
