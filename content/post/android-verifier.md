@@ -82,8 +82,8 @@ the policy value:
 
 The app has two verification paths. The original enforcement approach works by sending the verificator result via gRPC
 to the Play Store, which applies its
-own policy. The new enforcement works by pulling policy flags from Google's servers to a local cached store and the
-approach is delegated to **PackageInstallerSession**.
+own policy. The new enforcement works by pulling policy flags and trusted fingerprints from Google's servers to a local cached store. The
+enforcement is delegated to **PackageInstallerSession**.
 
 ## Conclusion
 
@@ -92,7 +92,8 @@ verifier is not present, it may or may not block the install. In any case, exist
 updates to
 installed apps are checked. The new verification path is enabled by a flag pulled from Google server.
 
-No network calls are made in the verification logic. For more context and ADB shell commands one
+No network calls are made in the verification logic. App verifier compares the app's signing certificate and fingerprint to trusted fingeprints pulled from Google's server.
+For more context and ADB shell commands one
 can use to debug this functionality, I recommend
 reading
 the [Android Developer Verification Discourse](https://gist.github.com/agnostic-apollo/b8d8daa24cbdd216687a6bef53d417a6).
