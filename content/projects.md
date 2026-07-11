@@ -5,7 +5,7 @@ title = "My projects:"
 <div class="project-links-container" style="display: flex; flex-direction: column; gap: 15px;">
 
   <a href="https://spruits.eu/" target="_blank" style="display: flex; align-items: center; text-decoration: none; height: 110px;">
-    <img src="/" height="80" width="80" style="border-radius: 5px; margin-right: 20px;" alt="logo">
+    <img src="/spruitenlogo.png" height="80" width="80" style="border-radius: 5px; margin-right: 20px;" alt="logo">
     <div style="line-height: 1.2;">
       <h3 style="margin: 0; padding: 0;">Spruiten</h3>
       <p style="margin: 0px; padding: 0;">Meaningful web apps created and deployed by me.</p>
