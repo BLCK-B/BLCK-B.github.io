@@ -92,7 +92,7 @@ verifier is not present, it may or may not block the install. In any case, exist
 updates to
 installed apps are checked. The new verification path is enabled by a flag pulled from Google server.
 
-No network calls are made in the verification logic. App verifier compares the app's signing certificate and fingerprint to trusted fingeprints pulled from Google's server.
+No network calls are made in the verification logic. App verifier compares the app's signing certificate and fingerprint to trusted fingerprints pulled from Google's server.
 For more context and ADB shell commands one
 can use to debug this functionality, I recommend
 reading

@@ -40,19 +40,19 @@ title = "My projects:"
     <h2 style="margin: 0; font-size: 1.2rem;">Completed / archived</h2>
   </div>
 
-  <a href="https://github.com/BLCK-B/Moerkepub" target="_blank" style="display: flex; align-items: center; text-decoration: none; height: 110px;">
-    <img src="/Moerkelogo.svg" height="80" width="80" alt="logo" style="margin-right: 20px;">
-    <div style="line-height: 1.2;">
-      <h3 style="margin: 0; padding: 0;">Mørkepub</h3>
-      <p style="margin: 0px; padding: 0;">Local EPUB translation using multilingual Transformer models on GPU.</p>
-    </div>
-  </a>
-
   <a href="https://github.com/BLCK-B/Prescient-VST" target="_blank" style="display: flex; align-items: center; text-decoration: none; height: 110px;">
     <img src="/prescientlogo.png" height="80" width="80" style="border-radius: 5px; margin-right: 20px;" alt="logo">
     <div style="line-height: 1.2;">
       <h3 style="margin: 0; padding: 0;">Prescient VST</h3>
       <p style="margin: 0px; padding: 0;">Real-time vocoder plugin with pitch shifting.</p>
+    </div>
+  </a>
+
+  <a href="https://github.com/BLCK-B/Moerkepub" target="_blank" style="display: flex; align-items: center; text-decoration: none; height: 110px;">
+    <img src="/Moerkelogo.svg" height="80" width="80" alt="logo" style="margin-right: 20px;">
+    <div style="line-height: 1.2;">
+      <h3 style="margin: 0; padding: 0;">Mørkepub</h3>
+      <p style="margin: 0px; padding: 0;">Local EPUB translation using multilingual Transformer models on GPU.</p>
     </div>
   </a>
 </div>

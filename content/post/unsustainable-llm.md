@@ -1,0 +1,43 @@
++++
+title = "A new unsustainability reaching beyond the tech stack"
+date = "2026-10-14"
++++
+
+There is a lot of money being spent on technology. Almost all of the money is concentrated in AI, which I will refer to by the far more accurate term LLM: large language models. We have heard all sorts of nonsense from CEOs and their marketing departments. Their vague message is that a disruptive transformation will occur, and that it is inevitable. Who doesn't get on board, will be left behind. I'm here to prove the exact opposite.
+
+Worldwide LLM spending totaled more than [$1.5 trillion](https://www.gartner.com/en/newsroom/press-releases/2025-09-17-gartner-says-worldwide-ai-spending-will-total-1-point-5-trillion-in-2025) in 2025 and is forecast to reach [$2.7 trillion](https://www.gartner.com/en/newsroom/press-releases/2026-09-16-gartner-forecasts-worldwide-ai-spending-to-grow-49-point-5-percent-in-2026) in 2026. Capital expenditures for 2025--2032 are projected at [3.2% of the U.S. GDP](https://www.reuters.com/business/retail-consumer/ais-race-transform-world-before-money-runs-out-2026-10-03/). Scaling LLMs requires compute. Therefore, most of the money goes to building datacenters and equipping them with hardware.
+
+[According to Reuters](https://www.reuters.com/business/retail-consumer/ai-data-centre-race-builds-1-trillion-lease-burden-big-tech-2026-08-04/): Microsoft, Meta, Oracle, Amazon and Alphabet already have future commitments of over $1 trillion under leases of data centres. This does not include operating expenses nor the cost of electricity. Conveniently, no one seems to mind the low effective lifespan of the special GPUs. It could well be [less than 5 years](https://www.goldmansachs.com/insights/articles/tracking-trillions-the-assumptions-shaping-scale-of-the-ai-build-out) until these data centres need to upgrade to newer generation GPUs.
+
+Anthropic and OpenAI, which represent [most of the enterprise market share](https://ramp.com/data/ai-index-sept-2026) of LLM providers, bet everything on scaling their models and the compute capacity. About [80% of Anthropic's commitments](https://www.reuters.com/business/anthropics-518-billion-ai-buildout-hinges-largely-deals-that-cannot-be-canceled-2026-09-29/), which amounts to at least $518 billion, are non-cancellable and payable regardless of use. OpenAI has similar commitments.
+
+Anthropic and OpenAI are promising immense profitability from a business model with terrible unit economics. So far, each has managed to be more unprofitable each year. From the [leaked financials](https://www.ft.com/content/e15b0d7e-ff6b-4f16-ba7a-4068feddb828) of OpenAI and [IPO prospectus](https://www.reuters.com/business/finance/anthropics-ipo-prospectus-shows-sweeping-ai-vision-surging-costs-2026-09-28/) of Anthropic, both companies had around $40 billion net loss in 2025.
+
+> 35% of the S&P 500 stock index value is seven AI companies. Six of them are losing money to the seventh one, which is Nvidia, which is loaning them the money to lose to it. -- Cory Doctorow
+
+So far, their losses have been offset by private capital, [circular investments](https://theconversation.com/whos-paying-whom-the-circular-money-machine-behind-the-ai-boom-or-bubble-293938) and more recently [by taking on debt](https://www.reuters.com/business/oracle-corp-goes-high-stakes-ratings-gamble-ai-strategy-2026-08-04/). If the LLM companies fail to [go public](https://www.reuters.com/business/biggest-ipo-wave-history-promises-3-trillion-value-with-no-profits-2026-04-23/) and to sell enough shares at a reasonable value, private capital can expect to lose their investments. If they do manage to sell the shares after they go public, index funds and therefore ordinary people will be subjected to the costs. This is unsustainable. The longer it takes until a correction occurs, the larger the impact will be.
+
+The unsustainability of LLMs is not limited to finance only. In software development, the codebase becomes less accessible to humans as more unchecked code is added. Vibe-coded projects *can* be kept at a reasonable number of lines of code, but the code is not made for understanding. The more an LLM is used, the more it becomes a requirement for maintenance and further development. A helpful term to describe this is "cognitive debt".
+
+Generally, LLM use leads to [more](https://www.gitclear.com/ai_assistant_code_quality_2025_research) [code](https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code-but-not-more-software/) than if it were written by humans. More code means more work to maintain and more work needed to add new features. Even if LLMs disappeared right now, there is vastly more code than before. For instance, the number of monthly commits on GitHub [has grown to 2.9 billion](https://github.blog/news-insights/company-news/the-august-17-outage-and-the-work-ahead/). There will be more work in software during a long period of hiring freezes.
+
+## The only way not to lose is not to play
+
+LLMs will get very expensive. [An analysis](https://newsletter.semianalysis.com/p/anthropic-subscriptions-offer-5x) of LLM subscription plans and their limits found that users can get 5 to 50 times more value from a subscription compared to direct API pricing. I suspect that even API rates are not profitable for the providers. The LLM costs for the same outcomes could easily increase tenfold.
+
+At first, there will be efforts to limit spending on LLMs. These efforts will not go far. One may argue that open-weight models and self-hosting can make the costs manageable. To disprove this, let's look at the requirements for running a second-rate model: DeepSeek v4 Flash. The [minimum GPU configuration](https://www.spheron.network/blog/deploy-deepseek-v4-flash-gpu-cloud/) is 4x Nvidia H100 GPUs, which [could cost the company $120,000](https://www.tomshardware.com/news/nvidia-to-sell-550000-h100-compute-gpus-in-2023-report) and which can require [up to 2.8 kW](https://resources.nvidia.com/en-us-gpu-resources/h100-datasheet-24306) of power under full load.
+
+Eventually, projects heavily based on LLMs will be abandoned. According to a [report from IBM](https://fortune.com/article/ceos-ai-initiatves-fraction-deliver-return-on-investment-roi-study/), only 25% of LLM initiatives have delivered an expected ROI over the past three years. Also mind that all of this is subsidised. When a company's financials are constrained, unprofitable side projects and non-essential workers are first on the cutting board. The more a product team relies on this unsustainable dependency, the more at risk they are of being let go.
+
+The reaction of businesses will also heavily depend on the economy and the opportunities. When a market correction occurs and the outlook worsens, budget cuts are certain to follow.
+I fear that even if LLMs are phased out, the unreal expectations of worker effectivity and approved budgets will stay in short- to mid-term.
+
+## What we can do
+
+On a personal level, one can avoid stocks, tools, [companies](https://www.reuters.com/business/autos-transportation/companies-pouring-billions-advance-ai-infrastructure-2026-07-22/) and projects that have a direct exposure to LLMs. And realise that there is no way around doing the actual work. It has always been good advice to learn the fundamentals, to expand your practical knowledge, and to be able to work with various information sources. Because even if the LLMs were [inevitable](https://www.abc.net.au/news/2026-08-08/cory-doctorow-on-the-ai-bubble-and-inevitability/106982988), a person who does not engage in understanding their work, does not have added value over the machine beyond being an accountability sink. Or in other words: being set to fail.
+
+{{<tip>}}It's always good to avoid dependency on unsustainable sources.{{</tip>}}
+
+But like many other social issues, this can't be solved in isolation. Higher-ups will absolutely maintain high expectations and set such a high tempo that leads to compromises and low quality. If you expect a single employee to do the work of 5 people, he has no choice but to [blindly trust an LLM](https://www.npr.org/2025/05/20/nx-s1-5405022/fake-summer-reading-list-ai). Who gets blamed when the machine inevitably fails?
+
+At the end of the day, workers have the ultimate leverage. It is our responsibility to speak up when the quality of our work and working conditions is threatened. We have the right to decline to work under unrealistic expectations. And if it happens that we can't keep up, it's time to negotiate better conditions and to restart the hiring. It comes down to calling out the BS, organising, unionising, and driving collective policy action.
